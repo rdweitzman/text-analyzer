@@ -1,5 +1,4 @@
 import requests
-import json
 
 response = requests.get(input("Provide the url for the .txt file you would like to analyze from the Project Gutenberg website (or elsewhere): "))
 
