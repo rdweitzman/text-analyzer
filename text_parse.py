@@ -1,7 +1,7 @@
 import requests
 import json
 
-response = requests.get('http://www.gutenberg.org/cache/epub/250/pg250.txt')
+response = requests.get(input("Provide the url for the .txt file you would like to analyze from the Project Gutenberg website (or elsewhere): "))
 
 
 working_responce = response.content.decode("utf-8")
@@ -71,9 +71,10 @@ def parse_text(user_document):
             working_arr.append(working_str)
             working_str = ''
 
-    print("end")
     count_sentence(working_arr)
     text_dict['paragraph_count'] = len(working_arr)
 
 parse_text(working_responce)
-print(text_dict)
+
+for title in text_dict:
+    print('%s: %s' %(title, text_dict[title]))
