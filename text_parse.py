@@ -1,5 +1,4 @@
 import requests
-import base64
 import json
 
 response = requests.get('http://www.gutenberg.org/cache/epub/250/pg250.txt')
@@ -7,7 +6,6 @@ response = requests.get('http://www.gutenberg.org/cache/epub/250/pg250.txt')
 
 working_responce = response.content.decode("utf-8")
 
-print(type(working_responce))
 
 punctuation = ['!', '.', '-', ':', ',', '_', "'"]
 
@@ -39,14 +37,13 @@ def count_sentence(para_array):
         if point < 1:
             sentence_arr.remove(point)
     
-    sentence_arr.pop(0)
 
     text_dict['sentence_count'] = sentence_count
     text_dict['average_sentences_per_paragraph'] = sum(sentence_arr) / len(sentence_arr)   
     text_dict['average_words_per_sentence'] = sum(word_sen) / len(word_sen)
     
 def parse_text(user_document):
-  
+
     strip = user_document.replace(" ", "").replace('\n','')
     working_chars = list(strip)
    
@@ -74,8 +71,9 @@ def parse_text(user_document):
             working_arr.append(working_str)
             working_str = ''
 
+    print("end")
     count_sentence(working_arr)
     text_dict['paragraph_count'] = len(working_arr)
 
-# parse_text(working_responce)
-# print(text_dict)
+parse_text(working_responce)
+print(text_dict)
