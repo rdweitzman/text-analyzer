@@ -3,9 +3,7 @@ import json
 
 response = requests.get(input("Provide the url for the .txt file you would like to analyze from the Project Gutenberg website (or elsewhere): "))
 
-
 working_responce = response.content.decode("utf-8")
-
 
 punctuation = ['!', '.', '-', ':', ',', '_', "'"]
 
@@ -36,7 +34,6 @@ def count_sentence(para_array):
     for point in sentence_arr:
         if point < 1:
             sentence_arr.remove(point)
-    
 
     text_dict['sentence_count'] = sentence_count
     text_dict['average_sentences_per_paragraph'] = sum(sentence_arr) / len(sentence_arr)   
