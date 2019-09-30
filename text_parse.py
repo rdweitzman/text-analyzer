@@ -1,3 +1,14 @@
+import requests
+import base64
+import json
+
+response = requests.get('http://www.gutenberg.org/cache/epub/250/pg250.txt')
+
+
+working_responce = response.content.decode("utf-8")
+
+print(type(working_responce))
+
 punctuation = ['!', '.', '-', ':', ',', '_', "'"]
 
 text_dict = {
@@ -34,14 +45,12 @@ def count_sentence(para_array):
     text_dict['average_sentences_per_paragraph'] = sum(sentence_arr) / len(sentence_arr)   
     text_dict['average_words_per_sentence'] = sum(word_sen) / len(word_sen)
     
-def parse_text():
-    file = open('olivertwist.txt')
-    text = file.read()
-    file.close()
-    strip = text.replace(" ", "").replace('\n','')
+def parse_text(user_document):
+  
+    strip = user_document.replace(" ", "").replace('\n','')
     working_chars = list(strip)
    
-    text_dict['character_count'] = len(text)
+    text_dict['character_count'] = len(user_document)
     text_dict['character_count_excluding_spaces'] = len(list(strip))
 
     for char in working_chars:
@@ -49,10 +58,10 @@ def parse_text():
            strip = strip.replace(char, "")
 
     text_dict['letter_count'] = len(list(strip))
-    text_dict['line_count'] = text.count('\n',)
-    text_dict['word_count']= len(text.split())
+    text_dict['line_count'] = user_document.count('\n',)
+    text_dict['word_count']= len(user_document.split())
 
-    working_paragraphs = text.split('\n')
+    working_paragraphs = user_document.split('\n')
 
     working_str = ''
     empty = ''
@@ -68,5 +77,5 @@ def parse_text():
     count_sentence(working_arr)
     text_dict['paragraph_count'] = len(working_arr)
 
-parse_text()
-print(text_dict)
+# parse_text(working_responce)
+# print(text_dict)
